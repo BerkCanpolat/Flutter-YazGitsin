@@ -15,7 +15,7 @@ class YazGitsinButton extends StatelessWidget {
       child: ElevatedButton.icon(
         onPressed: onPressed,
         icon: Icon(Icons.email),
-        label: Text(title,style: TextStyle(fontSize: 13),),
+        label: Text(title,style: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),),
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
