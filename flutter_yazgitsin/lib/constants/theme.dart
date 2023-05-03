@@ -15,14 +15,19 @@ ThemeData themeData = ThemeData(
       labelStyle: TextStyle(color: Colors.deepPurple),
       suffixIconColor: Colors.purple,
       fillColor: Colors.green,
-      
-    ));
+    ),
+    appBarTheme: AppBarTheme(
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.black),
+        elevation: 0.0,
+    )
+    );
 
 OutlineInputBorder _border =
     OutlineInputBorder(
       borderRadius: BorderRadius.circular(30),
       borderSide: BorderSide(
-        color: Colors.grey,
+        color: Colors.green.withOpacity(0.5),
         style: BorderStyle.solid
         ),
         );

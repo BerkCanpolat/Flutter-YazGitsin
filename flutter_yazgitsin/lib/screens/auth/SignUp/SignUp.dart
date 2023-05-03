@@ -4,20 +4,18 @@ import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_yazgitsin/constants/images.dart';
-import 'package:flutter_yazgitsin/constants/routes.dart';
-import 'package:flutter_yazgitsin/screens/auth/SignUp/SignUp.dart';
 import 'package:flutter_yazgitsin/widgets/Yazgitsin_button.dart';
 import 'package:flutter_yazgitsin/widgets/Yazgitsin_title.dart';
 import 'package:neopop/neopop.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class SignUp extends StatefulWidget {
+  const SignUp({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  State<SignUp> createState() => _SignUpState();
 }
 
-class _LoginState extends State<Login> {
+class _SignUpState extends State<SignUp> {
   bool isVisible = true;
   @override
   Widget build(BuildContext context) {
@@ -30,7 +28,7 @@ class _LoginState extends State<Login> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Giriş Yap",
+                "Üye Ol",
                 style: TextStyle(
                     color: Theme.of(context).primaryColor,
                     fontSize: 29,
@@ -42,14 +40,10 @@ class _LoginState extends State<Login> {
                 height: 12,
               ),
               Text(
-                "Hesabınıza giriş yapın",
+                "Hemen Üye Olun",
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              Center(
-                  child: Image.asset(
-                MainImages.instance.loginMain,
-                scale: 6,
-              )),
+              SizedBox(height: kToolbarHeight,),
               Card(
                 elevation: 5.0,
                 shadowColor: Colors.green,
@@ -59,6 +53,36 @@ class _LoginState extends State<Login> {
                 child: TextFormField(
                   decoration: InputDecoration(
                     label: Text("Email"),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Card(
+                elevation: 5.0,
+                shadowColor: Colors.green,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    label: Text("Name"),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Card(
+                elevation: 5.0,
+                shadowColor: Colors.green,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    label: Text("Phone"),
                   ),
                 ),
               ),
@@ -90,7 +114,7 @@ class _LoginState extends State<Login> {
                 ),
               ),
               SizedBox(
-                height: 12,
+                height: 30,
               ),
               NeoPopTiltedButton(
                 isFloating: true,
@@ -103,9 +127,9 @@ class _LoginState extends State<Login> {
                 ),
                 child: Padding(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 150.0, vertical: 15),
+                      EdgeInsets.symmetric(horizontal: 130.0, vertical: 15),
                   child: Text(
-                    "Giriş Yap",
+                    "Hesap Oluştur",
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -116,15 +140,13 @@ class _LoginState extends State<Login> {
               SizedBox(
                 height: 12,
               ),
-              Center(child: Text("Henüz Hesabın Yok Mu?")),
+              Center(child: Text("Zaten Hesabın Var Mı?")),
               Center(
                 child: CupertinoButton(
                     padding: EdgeInsets.zero,
-                    onPressed: () {
-                      MainRoutes.instance.pushMain(widget: SignUp(), context: context);
-                    },
+                    onPressed: () {},
                     child: Text(
-                      "Hesap Oluştur",
+                      "Giriş Yap",
                       style: TextStyle(
                         color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.bold,

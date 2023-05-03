@@ -6,6 +6,7 @@ import 'package:flutter_yazgitsin/constants/routes.dart';
 import 'package:flutter_yazgitsin/screens/auth/Login/login.dart';
 import 'package:flutter_yazgitsin/widgets/Yazgitsin_button.dart';
 import 'package:flutter_yazgitsin/widgets/Yazgitsin_title.dart';
+import 'package:neopop/neopop.dart';
 
 class Welcome extends StatelessWidget {
   const Welcome({super.key});
@@ -15,8 +16,8 @@ class Welcome extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(height: kToolbarHeight,),
             Center(
                 child: YazGitsinTitle(
               title: "Epostanızı kullanarak bir",
@@ -26,9 +27,31 @@ class Welcome extends StatelessWidget {
               height: 30,
             ),
             Image.asset(MainImages.instance.welcomeMain),
-            YazGitsinButton(title: "Email ile giriş yap",onPressed: (){
-              MainRoutes.instance.pushMain(widget: Login(), context: context);
-            },),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: NeoPopTiltedButton(
+                  isFloating: true,
+                  onTapUp: (){
+                    MainRoutes.instance.pushMain(widget: Login(), context: context);
+                  },
+                  decoration: NeoPopTiltedButtonDecoration(
+                    color: Colors.orange,
+                    plunkColor: Color.fromARGB(255, 170, 109, 16),
+                    shadowColor: Color.fromARGB(255, 129, 79, 3),
+                    showShimmer: true,
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 106.0,vertical: 15),
+                    child: Row(
+                      children: [
+                        Icon(Icons.email,color: Colors.white,),
+                        SizedBox(width: 12,),
+                        Text("Email ile giriş yap",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16),),
+                      ],
+                    )
+                  ),
+                ),
+              ),
           ],
         ),
       ),
