@@ -20,6 +20,9 @@ ThemeData themeData = ThemeData(
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: Colors.black),
         elevation: 0.0,
+        titleTextStyle: TextStyle(color: Colors.purple,fontSize: 20,fontWeight: FontWeight.bold
+        ),
+        centerTitle: true
     )
     );
 

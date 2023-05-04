@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_yazgitsin/Service/auth.dart';
+import 'package:flutter_yazgitsin/constants/constants.dart';
 import 'package:flutter_yazgitsin/constants/images.dart';
 import 'package:flutter_yazgitsin/constants/routes.dart';
 import 'package:flutter_yazgitsin/screens/auth/SignUp/SignUp.dart';
+import 'package:flutter_yazgitsin/screens/home/home.dart';
 import 'package:flutter_yazgitsin/widgets/Yazgitsin_button.dart';
 import 'package:flutter_yazgitsin/widgets/Yazgitsin_title.dart';
 import 'package:neopop/neopop.dart';
@@ -18,6 +21,10 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+
   bool isVisible = true;
   @override
   Widget build(BuildContext context) {
@@ -57,6 +64,9 @@ class _LoginState extends State<Login> {
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: TextFormField(
+                  keyboardType: TextInputType.emailAddress,
+                  textInputAction: TextInputAction.next,
+                  controller: email,
                   decoration: InputDecoration(
                     label: Text("Email"),
                   ),
@@ -72,6 +82,8 @@ class _LoginState extends State<Login> {
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: TextFormField(
+                  keyboardType: TextInputType.multiline,
+                  controller: password,
                   obscureText: isVisible,
                   decoration: InputDecoration(
                     label: Text("Password"),
@@ -94,7 +106,15 @@ class _LoginState extends State<Login> {
               ),
               NeoPopTiltedButton(
                 isFloating: true,
-                onTapUp: () {},
+                onTapUp: () async{
+                  bool isValidate = loginValidate(email.text, password.text);
+                  if(isValidate){
+                    bool isLogined = await AuthService.instance.loginService(email.text, password.text, context);
+                    if(isLogined){
+                      MainRoutes.instance.pushAndRemoved(widget: Home(), context: context);
+                    } 
+                  }
+                },
                 decoration: NeoPopTiltedButtonDecoration(
                   color: Colors.orange,
                   plunkColor: Color.fromARGB(255, 170, 109, 16),
