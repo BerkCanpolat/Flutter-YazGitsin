@@ -8,6 +8,8 @@ import 'package:flutter_yazgitsin/constants/images.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_yazgitsin/constants/routes.dart';
+import 'package:flutter_yazgitsin/screens/account/account.dart';
 import 'package:flutter_yazgitsin/screens/message/message.dart';
 
 class Home extends StatefulWidget {
@@ -31,7 +33,9 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: Text("YazGitsin"),
         actions: [
-          IconButton(onPressed: (){}, icon: Icon(Icons.person))
+          IconButton(onPressed: (){
+            MainRoutes.instance.pushMain(widget: Account(), context: context);
+          }, icon: Icon(Icons.person))
         ],
         ),
         body: StreamBuilder(
@@ -53,7 +57,6 @@ class _HomeState extends State<Home> {
                     child: ListTile(
                       subtitle: Text(listDocument[index]["mesaj"],style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
                       title: Text(listDocument[index]["name"]),
-                      leading: Image.network(listDocument[index]["image"]),
                     ),
                   );
                 },
