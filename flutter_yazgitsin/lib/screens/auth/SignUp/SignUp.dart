@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_yazgitsin/Service/auth.dart';
+import 'package:flutter_yazgitsin/constants/constants.dart';
 import 'package:flutter_yazgitsin/constants/images.dart';
+import 'package:flutter_yazgitsin/constants/routes.dart';
+import 'package:flutter_yazgitsin/screens/auth/Login/login.dart';
+import 'package:flutter_yazgitsin/screens/home/home.dart';
 import 'package:flutter_yazgitsin/widgets/Yazgitsin_button.dart';
 import 'package:flutter_yazgitsin/widgets/Yazgitsin_title.dart';
 import 'package:neopop/neopop.dart';
@@ -16,6 +21,12 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+  TextEditingController name = TextEditingController();
+  TextEditingController phone = TextEditingController();
+
   bool isVisible = true;
   @override
   Widget build(BuildContext context) {
@@ -51,6 +62,9 @@ class _SignUpState extends State<SignUp> {
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: TextFormField(
+                  keyboardType: TextInputType.emailAddress,
+                  textInputAction: TextInputAction.next,
+                  controller: email,
                   decoration: InputDecoration(
                     label: Text("Email"),
                   ),
@@ -66,6 +80,9 @@ class _SignUpState extends State<SignUp> {
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: TextFormField(
+                  keyboardType: TextInputType.name,
+                  textInputAction: TextInputAction.next,
+                  controller: name,
                   decoration: InputDecoration(
                     label: Text("Name"),
                   ),
@@ -81,6 +98,9 @@ class _SignUpState extends State<SignUp> {
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: TextFormField(
+                  keyboardType: TextInputType.phone,
+                  textInputAction: TextInputAction.next,
+                  controller: phone,
                   decoration: InputDecoration(
                     label: Text("Phone"),
                   ),
@@ -96,6 +116,7 @@ class _SignUpState extends State<SignUp> {
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: TextFormField(
+                  controller: password,
                   obscureText: isVisible,
                   decoration: InputDecoration(
                     label: Text("Password"),
@@ -118,7 +139,15 @@ class _SignUpState extends State<SignUp> {
               ),
               NeoPopTiltedButton(
                 isFloating: true,
-                onTapUp: () {},
+                onTapUp: () async{
+                  bool isValidate = signUpValidate(email.text, password.text, name.text, phone.text);
+                  if(isValidate){
+                    bool isLogined = await AuthService.instance.signUpService(name.text,email.text, password.text, context);
+                    if(isLogined){
+                      MainRoutes.instance.pushAndRemoved(widget: Home(), context: context);
+                    } 
+                  }
+                },
                 decoration: NeoPopTiltedButtonDecoration(
                   color: Colors.orange,
                   plunkColor: Color.fromARGB(255, 170, 109, 16),
@@ -144,7 +173,9 @@ class _SignUpState extends State<SignUp> {
               Center(
                 child: CupertinoButton(
                     padding: EdgeInsets.zero,
-                    onPressed: () {},
+                    onPressed: () {
+                      MainRoutes.instance.pushMain(widget: Login(), context: context);
+                    },
                     child: Text(
                       "Giriş Yap",
                       style: TextStyle(
