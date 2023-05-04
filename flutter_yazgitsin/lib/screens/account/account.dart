@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_yazgitsin/Service/auth.dart';
 
 class Account extends StatefulWidget {
   const Account({super.key});
@@ -60,7 +61,9 @@ class _AccountState extends State<Account> {
           ),
           SizedBox(height: 12,),
           ListTile(
-            onTap: (){},
+            onTap: (){
+              AuthService.instance.logout(context);
+            },
             title: Text("Çıkış Yap",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
             leading: Icon(Icons.login_outlined),
           ),

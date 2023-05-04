@@ -38,9 +38,9 @@ class _HomeState extends State<Home> {
           }, icon: Icon(Icons.person))
         ],
         ),
-        body: StreamBuilder(
+        body: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance.collection("mesajlar").snapshots(),
-          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot<Map<String,dynamic>>> snapshot){
+          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
             if(snapshot.hasError){
               return Text("Bir hata meydana geldi");
             }
@@ -49,23 +49,37 @@ class _HomeState extends State<Home> {
             }
             if(snapshot.hasData){
               List<DocumentSnapshot> listDocument = snapshot.data!.docs;
-              return ListView.builder(
-                itemCount: listDocument.length,
-                itemBuilder: (context, index) {
-                  return Card(
-                    color: Colors.orange,
-                    child: ListTile(
-                      subtitle: Text(listDocument[index]["mesaj"],style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
-                      title: Text(listDocument[index]["name"]),
+              return Column(
+                children: [
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: listDocument.length,
+                      itemBuilder: (context, index) {
+                        return Card(
+                          color: Colors.orange,
+                          child: ListTile(
+                            subtitle: Text(listDocument[index]["mesaj"],style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+                            title: Row(
+                              children: [
+                                Image.network(listDocument[index]["image"],scale: 25),
+                                SizedBox(width: 10,),
+                                Text(listDocument[index]["name"]),
+                              ],
+                            ),
+                            
+                          ),
+                        );
+                      },
                     ),
-                  );
-                },
+                  ),
+                  Message()
+                ],
               );
             }
             return Text("bla bla blaaa");
           },
         ),
-        bottomNavigationBar: Message(),
+        // bottomNavigationBar: Message(),
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -38,8 +39,31 @@ class _MessageState extends State<Message> {
                   Map<String,dynamic> mesajData = {
                     "mesaj": sendMessage.text,
                   };
-                  await mesaj.doc(sendMessage.text).set(mesajData);
+                  // await mesaj.doc(sendMessage.text).set(mesajData);
+                  //
 
+                  // final docUser = FirebaseFirestore.instance.collection("mesajlar").doc();
+                  // final user = {
+                  //   "id": docUser.id,
+                  //   "mesaj": sendMessage.text,
+                  // };
+                  // await docUser.set(user);
+
+                  final user = await FirebaseAuth.instance.currentUser;
+                  final userUid = user!.uid;
+                  final ref = FirebaseDatabase.instance.ref();
+                  final userName = await ref.child(userUid).child("name").get();
+                  final userImage = await ref.child(userUid).child("image").get();
+
+                  Map<String,dynamic> data = {
+                    "name": userName.value.toString(),
+                    "image":userImage.value.toString(),
+                    "mesaj":sendMessage.text
+                  };
+                  await FirebaseFirestore.instance
+                  .collection("mesajlar")
+                  .doc()
+                  .set(data);
                 },
                 child: Icon(Icons.send))),
       ),
