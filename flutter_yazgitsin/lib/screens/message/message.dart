@@ -39,16 +39,6 @@ class _MessageState extends State<Message> {
                   Map<String,dynamic> mesajData = {
                     "mesaj": sendMessage.text,
                   };
-                  // await mesaj.doc(sendMessage.text).set(mesajData);
-                  //
-
-                  // final docUser = FirebaseFirestore.instance.collection("mesajlar").doc();
-                  // final user = {
-                  //   "id": docUser.id,
-                  //   "mesaj": sendMessage.text,
-                  // };
-                  // await docUser.set(user);
-
                   final user = await FirebaseAuth.instance.currentUser;
                   final userUid = user!.uid;
                   final ref = FirebaseDatabase.instance.ref();
