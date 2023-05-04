@@ -16,29 +16,33 @@ class Message extends StatefulWidget {
 class _MessageState extends State<Message> {
   TextEditingController sendMessage = TextEditingController();
   final _firestore = FirebaseFirestore.instance;
-  final user = FirebaseAuth.instance.currentUser;
-  
+  User? user = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
     CollectionReference mesaj = _firestore.collection("mesajlar");
+
     return Padding(
-          padding: const EdgeInsets.only(bottom: 12),
-          child: TextFormField(
-            controller: sendMessage,
-            decoration: InputDecoration(
-              hintText: "Mesaj Yaz..",
-              prefixIcon: Icon(Icons.tag_faces_rounded,color: Colors.deepOrangeAccent,),
-              suffixIcon: CupertinoButton(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: TextFormField(
+        controller: sendMessage,
+        decoration: InputDecoration(
+            hintText: "Mesaj Yaz..",
+            prefixIcon: Icon(
+              Icons.tag_faces_rounded,
+              color: Colors.deepOrangeAccent,
+            ),
+            suffixIcon: CupertinoButton(
                 padding: EdgeInsets.zero,
-                onPressed: () async{
+                onPressed: () async {
                   Map<String,dynamic> mesajData = {
-                    "mesaj": sendMessage.text
+                    "mesaj": sendMessage.text,
                   };
                   await mesaj.doc(sendMessage.text).set(mesajData);
+
                 },
-                child: Icon(Icons.send))
-            ),
-          ),
-        );
+                child: Icon(Icons.send))),
+      ),
+    );
   }
 }
