@@ -51,6 +51,7 @@ class DefaultFirebaseOptions {
     authDomain: 'flutter-yazgitsin.firebaseapp.com',
     storageBucket: 'flutter-yazgitsin.appspot.com',
     measurementId: 'G-QYZXWL75G2',
+    databaseURL: "https://flutter-yazgitsin-default-rtdb.europe-west1.firebasedatabase.app"
   );
 
   static const FirebaseOptions android = FirebaseOptions(
@@ -59,6 +60,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '258795206142',
     projectId: 'flutter-yazgitsin',
     storageBucket: 'flutter-yazgitsin.appspot.com',
+    databaseURL: "https://flutter-yazgitsin-default-rtdb.europe-west1.firebasedatabase.app"
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
@@ -69,6 +71,7 @@ class DefaultFirebaseOptions {
     storageBucket: 'flutter-yazgitsin.appspot.com',
     iosClientId: '258795206142-nt7gbqpn32b9jvc0pi7jtm1q8el3v97e.apps.googleusercontent.com',
     iosBundleId: 'com.example.flutterYazgitsin',
+    databaseURL: "https://flutter-yazgitsin-default-rtdb.europe-west1.firebasedatabase.app"
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -79,5 +82,6 @@ class DefaultFirebaseOptions {
     storageBucket: 'flutter-yazgitsin.appspot.com',
     iosClientId: '258795206142-nt7gbqpn32b9jvc0pi7jtm1q8el3v97e.apps.googleusercontent.com',
     iosBundleId: 'com.example.flutterYazgitsin',
+    databaseURL: "https://flutter-yazgitsin-default-rtdb.europe-west1.firebasedatabase.app"
   );
 }

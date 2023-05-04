@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_yazgitsin/constants/constants.dart';
 import 'package:flutter_yazgitsin/constants/routes.dart';
@@ -41,6 +42,17 @@ class AuthService{
         .doc()
         .set(kullanicilar)
       });
+final user= await FirebaseAuth.instance.currentUser;
+final userUid=user!.uid;
+      var ref=FirebaseDatabase.instance.ref(userUid);
+      Map<String,dynamic> kullaniciAdd={
+        "name":name,
+        "email":email,
+        "password":password,
+        "profiUrl":""
+      };
+      await ref.set(kullaniciAdd).then((value) => print("Kayıt Ok"));
+
       Navigator.pop(context);
       return true;
     }on FirebaseAuthException catch (e) {
