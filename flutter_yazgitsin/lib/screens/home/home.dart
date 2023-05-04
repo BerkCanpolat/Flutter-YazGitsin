@@ -26,6 +26,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     CollectionReference mesaj = _firestore.collection("mesajlar");
+
     return Scaffold(
       appBar: AppBar(
         title: Text("YazGitsin"),
@@ -33,9 +34,9 @@ class _HomeState extends State<Home> {
           IconButton(onPressed: (){}, icon: Icon(Icons.person))
         ],
         ),
-        body: StreamBuilder<QuerySnapshot>(
-          stream: mesaj.snapshots(),
-          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
+        body: StreamBuilder(
+          stream: FirebaseFirestore.instance.collection("mesajlar").snapshots(),
+          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot<Map<String,dynamic>>> snapshot){
             if(snapshot.hasError){
               return Text("Bir hata meydana geldi");
             }
@@ -51,6 +52,8 @@ class _HomeState extends State<Home> {
                     color: Colors.orange,
                     child: ListTile(
                       subtitle: Text(listDocument[index]["mesaj"],style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+                      title: Text(listDocument[index]["name"]),
+                      leading: Image.network(listDocument[index]["image"]),
                     ),
                   );
                 },
