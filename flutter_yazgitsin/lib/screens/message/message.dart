@@ -24,6 +24,7 @@ class _MessageState extends State<Message> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) => baglantiAl());
+    kameradanYukle();
   }
 
   File? yuklenecekDosya;
@@ -37,18 +38,18 @@ class _MessageState extends State<Message> {
     .child(auth.currentUser!.uid)
     .child("kullaniciResmi").getDownloadURL();
 
-    setState(() {
-      indirmeBaglantisi = baglanti;
+    setState(() async{
+      indirmeBaglantisi = await baglanti;
     });
   }
 
   kameradanYukle() async{
     var alinanDosya = await ImagePicker().pickImage(source: ImageSource.camera);
-    setState(() {
-      yuklenecekDosya = File(alinanDosya!.path);
+    setState(() async{
+      yuklenecekDosya = await File(alinanDosya!.path);
     });
 
-    Reference referansYolu = FirebaseStorage.instance
+    Reference referansYolu = await FirebaseStorage.instance
     .ref()
     .child("profilresimleri")
     .child(auth.currentUser!.uid)
@@ -56,23 +57,17 @@ class _MessageState extends State<Message> {
 
     UploadTask yuklemeGorevi = referansYolu.putFile(yuklenecekDosya!);
     String url = await (await yuklemeGorevi.whenComplete(() => print("Fotoğraf Yüklendi"))).ref.getDownloadURL();
-    setState(() {
-      indirmeBaglantisi = url;
+    setState(() async{
+      indirmeBaglantisi = await url;
     });
   }
 
+  String imageUrl = '';
 
 
   TextEditingController sendMessage = TextEditingController();
   final _firestore = FirebaseFirestore.instance;
   User? user = FirebaseAuth.instance.currentUser;
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    sendMessage.text;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,10 +95,10 @@ class _MessageState extends State<Message> {
                   final userName = await ref.child(userUid).child("name").get();
                   final userId = await ref.child(userUid).child("id").get();
 
-                  Map<String,dynamic> data = {
-                    "name": userName.value.toString(),
+                  Map<String,dynamic> data = await {
+                    "name": userName.value,
                     "image":indirmeBaglantisi.toString(),
-                    "id": userId.value.toString(),
+                    "id": userId.value,
                     "mesaj":sendMessage.text
                   };
                   await FirebaseFirestore.instance
@@ -111,7 +106,9 @@ class _MessageState extends State<Message> {
                   .doc()
                   .set(data);
                 },
-                child: Icon(Icons.send))),
+                child: Icon(Icons.send)
+                ),
+                ),
       ),
     );
   }

@@ -26,6 +26,14 @@ class _LoginState extends State<Login> {
   TextEditingController password = TextEditingController();
 
   bool isVisible = true;
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    email.text;
+    password.text;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,6 +91,7 @@ class _LoginState extends State<Login> {
                 ),
                 child: TextFormField(
                   keyboardType: TextInputType.multiline,
+                  textInputAction: TextInputAction.done,
                   controller: password,
                   obscureText: isVisible,
                   decoration: InputDecoration(
