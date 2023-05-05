@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +8,8 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class Message extends StatefulWidget {
   const Message({super.key});
@@ -15,6 +19,50 @@ class Message extends StatefulWidget {
 }
 
 class _MessageState extends State<Message> {
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => baglantiAl());
+  }
+
+  File? yuklenecekDosya;
+  FirebaseAuth auth = FirebaseAuth.instance;
+  String? indirmeBaglantisi;
+
+  baglantiAl() async{
+    String baglanti = await FirebaseStorage.instance
+    .ref()
+    .child("profilresimleri")
+    .child(auth.currentUser!.uid)
+    .child("kullaniciResmi").getDownloadURL();
+
+    setState(() {
+      indirmeBaglantisi = baglanti;
+    });
+  }
+
+  kameradanYukle() async{
+    var alinanDosya = await ImagePicker().pickImage(source: ImageSource.camera);
+    setState(() {
+      yuklenecekDosya = File(alinanDosya!.path);
+    });
+
+    Reference referansYolu = FirebaseStorage.instance
+    .ref()
+    .child("profilresimleri")
+    .child(auth.currentUser!.uid)
+    .child("kullaniciResmi");
+
+    UploadTask yuklemeGorevi = referansYolu.putFile(yuklenecekDosya!);
+    String url = await (await yuklemeGorevi.whenComplete(() => print("Fotoğraf Yüklendi"))).ref.getDownloadURL();
+    setState(() {
+      indirmeBaglantisi = url;
+    });
+  }
+
+
+
   TextEditingController sendMessage = TextEditingController();
   final _firestore = FirebaseFirestore.instance;
   User? user = FirebaseAuth.instance.currentUser;
@@ -43,11 +91,12 @@ class _MessageState extends State<Message> {
                   final userUid = user!.uid;
                   final ref = FirebaseDatabase.instance.ref();
                   final userName = await ref.child(userUid).child("name").get();
-                  final userImage = await ref.child(userUid).child("image").get();
+                  final userId = await ref.child(userUid).child("id").get();
 
                   Map<String,dynamic> data = {
                     "name": userName.value.toString(),
-                    "image":userImage.value.toString(),
+                    "image":indirmeBaglantisi.toString(),
+                    "id": userId.value.toString(),
                     "mesaj":sendMessage.text
                   };
                   await FirebaseFirestore.instance
