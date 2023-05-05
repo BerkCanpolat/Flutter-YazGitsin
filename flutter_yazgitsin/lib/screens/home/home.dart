@@ -86,23 +86,28 @@ class _HomeState extends State<Home> {
                             );
                           });
                         },
-                        child: Card(
-                          color: Colors.orange,
-                          child: ListTile(
-                            subtitle: Text(
-                              listDocument[index]["mesaj"],
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Card(
+                            elevation: 9.0,
+                            color: Colors.orange,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                            child: ListTile(
+                              subtitle: Text(
+                                listDocument[index]["mesaj"],
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              title: Text(listDocument[index]["name"],style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
+                              leading: ClipRRect(
+                                  borderRadius: BorderRadius.circular(50),
+                                  child: Image.network(
+                                    listDocument[index]["image"],
+                                    scale: 20,
+                                    fit: BoxFit.cover,
+                                  )),
                             ),
-                            title: Text(listDocument[index]["name"]),
-                            leading: ClipRRect(
-                                borderRadius: BorderRadius.circular(50),
-                                child: Image.network(
-                                  listDocument[index]["image"],
-                                  scale: 20,
-                                  fit: BoxFit.cover,
-                                )),
                           ),
                         ),
                       );
@@ -113,7 +118,7 @@ class _HomeState extends State<Home> {
               ],
             );
           }
-          return Text("bla bla blaaa");
+          return Center(child: CircularProgressIndicator(),);
         },
       ),
       // bottomNavigationBar: Message(),
