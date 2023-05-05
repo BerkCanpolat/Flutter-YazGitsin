@@ -67,6 +67,10 @@ class _MessageState extends State<Message> {
   final _firestore = FirebaseFirestore.instance;
   User? user = FirebaseAuth.instance.currentUser;
 
+  void clearMessage(){
+    sendMessage.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     CollectionReference mesaj = _firestore.collection("mesajlar");
