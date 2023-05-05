@@ -59,14 +59,10 @@ class _HomeState extends State<Home> {
                           color: Colors.orange,
                           child: ListTile(
                             subtitle: Text(listDocument[index]["mesaj"],style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
-                            title: Row(
-                              children: [
-                                Image.network(listDocument[index]["image"],scale: 25),
-                                SizedBox(width: 10,),
-                                Text(listDocument[index]["name"]),
-                              ],
-                            ),
-                            
+                            title: Text(listDocument[index]["name"]),
+                            leading: ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: Image.network(listDocument[index]["image"],scale: 20,fit: BoxFit.cover,)),
                           ),
                         );
                       },

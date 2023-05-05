@@ -144,7 +144,7 @@ class _SignUpState extends State<SignUp> {
                   if(isValidate){
                     bool isLogined = await AuthService.instance.signUpService(name.text,email.text, password.text, context);
                     if(isLogined){
-                      MainRoutes.instance.pushAndRemoved(widget: Home(), context: context);
+                      Navigator.pop(context);
                     } 
                   }
                 },
