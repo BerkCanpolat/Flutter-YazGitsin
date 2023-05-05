@@ -118,9 +118,7 @@ class _AccountState extends State<Account> {
             ),
             leading: Icon(Icons.settings),
           ),
-          SizedBox(
-            height: 12,
-          ),
+          Divider(thickness: 1.6),
           ListTile(
             onTap: () {
               MainRoutes.instance.pushMain(widget: PassWordChange(), context: context);
@@ -131,9 +129,7 @@ class _AccountState extends State<Account> {
             ),
             leading: Icon(Icons.change_circle_outlined),
           ),
-          SizedBox(
-            height: 12,
-          ),
+          Divider(thickness: 1.6),
           ListTile(
             onTap: () {},
             title: Text(
@@ -142,9 +138,7 @@ class _AccountState extends State<Account> {
             ),
             leading: Icon(Icons.support_agent),
           ),
-          SizedBox(
-            height: 12,
-          ),
+          Divider(thickness: 1.6),
           ListTile(
             onTap: () async {},
             title: Text(
@@ -153,9 +147,7 @@ class _AccountState extends State<Account> {
             ),
             leading: Icon(Icons.person_off_outlined),
           ),
-          SizedBox(
-            height: 12,
-          ),
+          Divider(thickness: 1.6),
           ListTile(
             onTap: () {
               AuthService.instance.logout(context);
@@ -166,9 +158,7 @@ class _AccountState extends State<Account> {
             ),
             leading: Icon(Icons.login_outlined),
           ),
-          SizedBox(
-            height: 30,
-          ),
+          Divider(thickness: 1.6),
           Text("Version 1.0.0")
         ],
       ),

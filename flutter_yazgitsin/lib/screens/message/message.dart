@@ -67,8 +67,11 @@ class _MessageState extends State<Message> {
   final _firestore = FirebaseFirestore.instance;
   User? user = FirebaseAuth.instance.currentUser;
 
-  void clearMessage(){
-    sendMessage.clear();
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    sendMessage.text;
   }
 
   @override
@@ -76,7 +79,7 @@ class _MessageState extends State<Message> {
     CollectionReference mesaj = _firestore.collection("mesajlar");
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.only(bottom: 12,left: 12,right: 12),
       child: TextFormField(
         controller: sendMessage,
         decoration: InputDecoration(
