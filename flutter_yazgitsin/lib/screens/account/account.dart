@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -9,6 +10,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_yazgitsin/Service/auth.dart';
 import 'package:flutter_yazgitsin/constants/routes.dart';
+import 'package:flutter_yazgitsin/screens/auth/welcome/welcome.dart';
+import 'package:flutter_yazgitsin/screens/hesap_sil/hesap_sil.dart';
 import 'package:flutter_yazgitsin/screens/passwordChange/password_change.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -67,6 +70,7 @@ class _AccountState extends State<Account> {
   }
 
   User? user = FirebaseAuth.instance.currentUser;
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -121,7 +125,8 @@ class _AccountState extends State<Account> {
           Divider(thickness: 1.6),
           ListTile(
             onTap: () {
-              MainRoutes.instance.pushMain(widget: PassWordChange(), context: context);
+              MainRoutes.instance
+                  .pushMain(widget: PassWordChange(), context: context);
             },
             title: Text(
               "Şifre Değiştir",
@@ -140,7 +145,9 @@ class _AccountState extends State<Account> {
           ),
           Divider(thickness: 1.6),
           ListTile(
-            onTap: () async {},
+            onTap: () async{
+              MainRoutes.instance.pushMain(widget: HesapSil(), context: context);
+            },
             title: Text(
               "Hesabı Sil",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -165,3 +172,4 @@ class _AccountState extends State<Account> {
     );
   }
 }
+

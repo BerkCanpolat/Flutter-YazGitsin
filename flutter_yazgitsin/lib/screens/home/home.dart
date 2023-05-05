@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -11,6 +13,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_yazgitsin/constants/routes.dart';
 import 'package:flutter_yazgitsin/screens/account/account.dart';
 import 'package:flutter_yazgitsin/screens/message/message.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
+
+
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -20,6 +26,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
   TextEditingController sendMessage = TextEditingController();
   final _firestore = FirebaseFirestore.instance;
   final user = FirebaseAuth.instance.currentUser;
@@ -100,10 +107,10 @@ class _HomeState extends State<Home> {
                                     fontWeight: FontWeight.bold),
                               ),
                               title: Text(listDocument[index]["name"],style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
-                              leading: ClipRRect(
+                              leading: listDocument[index]['image'] == null ? Text("Resim yok") :  ClipRRect(
                                   borderRadius: BorderRadius.circular(50),
                                   child: Image.network(
-                                    listDocument[index]["image"],
+                                  listDocument[index]["image"],
                                     scale: 20,
                                     fit: BoxFit.cover,
                                   )),
@@ -118,7 +125,7 @@ class _HomeState extends State<Home> {
               ],
             );
           }
-          return Center(child: CircularProgressIndicator(),);
+          return Text("bla blaaaa");
         },
       ),
       // bottomNavigationBar: Message(),
